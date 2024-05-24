@@ -9,21 +9,46 @@ void addAtEnd(Echipa **head, int i, char *nume, float punctaj) /// in lista tine
 ///(eliminam echipele din lista + actualizam numarul de victorii) pe masura ce facem deQueue mai intai din coada castigatorilor, dupa aceea din coada invinsilor
 /// nu mai duplicam nodurile!!!
 {
-  Echipa *node = (Echipa *)malloc(sizeof(Echipa));
-  node->nume = (char *)malloc((strlen(nume) + 1) * sizeof(char));
-  strcpy(node->nume, nume);
-  node->punctaj = punctaj;
-  node->victorii = 0;
-  node->next = NULL;
+    Echipa *node = (Echipa *)malloc(sizeof(Echipa));
+    node->nume = (char *)malloc((strlen(nume) + 1) * sizeof(char));
+    strcpy(node->nume, nume);
+    node->punctaj = punctaj;
+    node->victorii = 0;
+    node->next = NULL;
 
-  if (*head == NULL)
-  {
-    *head = node;
+    if (*head == NULL)
+    {
+        *head = node;
+        return;
+    }
+
+    Echipa *p;
+    for (p = *head; p->next != NULL; p = p->next)
+        ;
+
+    p->next = node;
+}
+
+void elim_echipa(Echipa **lista_echipe, Echipa *echipa)
+{
+    if (*lista_echipe == NULL)
+        return;
+    Echipa *copie = *lista_echipe;
+    if (strcmp((*lista_echipe)->nume, echipa->nume) == 0)
+    {
+        *lista_echipe = (*lista_echipe)->next;
+        free(copie);
+        return;
+    }
+    Echipa *prev=*lista_echipe;
+    while (copie->next!=NULL)
+    if (strcmp((*lista_echipe)->nume,echipa->nume))
+    { prev=copie;
+      copie=copie->next;
+    }
+    else
+    { prev->next=copie;
+    free(copie);
     return;
-  }
-
-  Echipa *p;
-  for (p = *head; p->next != NULL; p = p->next);
-
-  p->next = node;
+    }
 }
