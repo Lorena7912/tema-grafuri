@@ -33,7 +33,6 @@ Echipa *citeste_echipele(char *citire)
     fgets(nume, LUNGIME_MAXIMA, c);
     elim_c(nume);
     addAtEnd(&lista_echipe, i, nume, punctaj);
-    printf("%f %s\n", punctaj, nume);
   }
   fclose(c);
   return lista_echipe;

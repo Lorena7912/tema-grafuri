@@ -41,13 +41,14 @@ void elim_echipa(Echipa **lista_echipe, Echipa *echipa)
         return;
     }
     Echipa *prev=*lista_echipe;
-    while (copie->next!=NULL)
-    if (strcmp((*lista_echipe)->nume,echipa->nume))
+    while (copie!=NULL)
+    if (strcmp(copie->nume,echipa->nume)!=0)
     { prev=copie;
       copie=copie->next;
     }
     else
-    { prev->next=copie;
+    {
+        prev->next=copie->next;
     free(copie);
     return;
     }
