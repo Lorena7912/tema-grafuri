@@ -1,5 +1,6 @@
 typedef struct Echipa Echipa;
 typedef struct Graph Graph;
+typedef struct Queue Queue;
 struct Echipa
 { int i;
   int victorii;
@@ -14,7 +15,7 @@ struct Graph
     int **a;
 };
 
-struct Queque
+struct Queue
 {
   Echipa *front, *rear;
 };

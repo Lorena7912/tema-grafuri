@@ -37,3 +37,9 @@ Echipa *citeste_echipele(char *citire)
   fclose(c);
   return lista_echipe;
 }
+
+/*void meciuri (Echipa *lista_echipe,Graph *q)
+{ 
+
+
+}*/
