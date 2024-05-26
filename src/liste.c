@@ -13,7 +13,7 @@ void addAtEnd(Echipa **head, int i, char *nume, float punctaj) /// in lista tine
     node->nume = (char *)malloc((strlen(nume) + 1) * sizeof(char));
     strcpy(node->nume, nume);
     node->punctaj = punctaj;
-    node->victorii = 0;
+    node->i=i;
     node->next = NULL;
 
     if (*head == NULL)

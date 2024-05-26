@@ -3,7 +3,6 @@ typedef struct Graph Graph;
 typedef struct Queue Queue;
 struct Echipa
 { int i;
-  int victorii;
   char *nume;
   float punctaj;
   struct Echipa *next;

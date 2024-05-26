@@ -14,13 +14,13 @@ Queue *createQueue()
 }
 
 void enQueue(Queue *q, Echipa *v)
-{
+{  
     Echipa *newNode = (Echipa *)malloc(sizeof(Echipa));
     newNode->i = v->i;
-    newNode->victorii = v->victorii;
     newNode->nume = (char *)malloc((strlen(v->nume) + 1) * sizeof(char));
     strcpy(newNode->nume, v->nume);
-    newNode->punctaj = newNode->punctaj;
+    newNode->punctaj = v->punctaj; 
+   
     newNode->next = NULL;
     // nodurile noi se adauga la finalul cozii
     // daca nu exista niciun nod in coada
@@ -48,7 +48,6 @@ Echipa *deQueue(Queue *q) ///verificata
     ///atribuim lui val elementele lui q->front
     Echipa *val = (Echipa *)malloc(sizeof(Echipa));
     val->i=aux->i;
-    val->victorii=aux->victorii;
     val->punctaj=aux->punctaj;
     val->nume=(char*)malloc((strlen(aux->nume)+1)*sizeof(char));
     strcpy(val->nume,aux->nume);
