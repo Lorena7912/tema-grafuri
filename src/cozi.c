@@ -22,8 +22,7 @@ void enQueue(Queue *q, Echipa *v)
     newNode->punctaj = v->punctaj; 
    
     newNode->next = NULL;
-    // nodurile noi se adauga la finalul cozii
-    // daca nu exista niciun nod in coada
+    
     if (q->rear == NULL)
         q->rear = newNode;
     else
@@ -31,27 +30,27 @@ void enQueue(Queue *q, Echipa *v)
         (q->rear)->next = newNode;
         (q->rear) = newNode;
     }
-    // daca exita un singur element in coada
+  
     if (q->front == NULL)
         q->front = q->rear;
 }
 
-int isEmpty(Queue *q) ///verificata
+int isEmpty(Queue *q) 
 {
     return (q->front == NULL);
 }
-Echipa *deQueue(Queue *q) ///verificata
+Echipa *deQueue(Queue *q) 
 {
     if (isEmpty(q))
         return NULL; ///!
     Echipa *aux=q->front;
-    ///atribuim lui val elementele lui q->front
+ 
     Echipa *val = (Echipa *)malloc(sizeof(Echipa));
     val->i=aux->i;
     val->punctaj=aux->punctaj;
     val->nume=(char*)malloc((strlen(aux->nume)+1)*sizeof(char));
     strcpy(val->nume,aux->nume);
-    val->next = NULL; ///pentru a "izola elementul"
+    val->next = NULL; 
 
     q->front=(q->front)->next;
     free(aux);

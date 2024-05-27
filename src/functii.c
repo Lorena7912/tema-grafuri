@@ -51,30 +51,26 @@ Graph *createGraph()
   return g;
 }
 
-void meciuri(Echipa *lista_echipe, Graph *g)
+void meciuri(Echipa *lista_echipe, Graph *g, Queue *castigatori, Queue *invinsi)
 {
-  Queue *castigatori = createQueue();
-  Queue *invinsi = createQueue();
+
   Echipa *aux;
   int nr_echipe = NR_ECHIPE;
 
   for (Echipa *p = lista_echipe; p != NULL; p = p->next) /// toate echipele incep din coada de castigatori
     enQueue(castigatori, p);
-  /*for (Echipa *p=castigatori->front;p!=NULL;p=p->next)
-  printf("%s\n",p->nume);*/
+
   while (nr_echipe > 1)
-  { 
+  {
     Echipa *echipa1 = deQueue(castigatori);
     Echipa *echipa2 = deQueue(castigatori);
-  
-    nr_echipe=nr_echipe-2;
+
+    nr_echipe = nr_echipe - 2;
     if (echipa1->punctaj > echipa2->punctaj || (fabs(echipa1->punctaj - echipa2->punctaj) < 0.001 && strcmp(echipa1->nume, echipa2->nume) > 0))
     {
       enQueue(castigatori, echipa1);
       enQueue(invinsi, echipa2);
-      g->a[echipa2->i][echipa1->i] = 1; /// actualizare graf
-    
-      
+      g->a[echipa2->i][echipa1->i] = 1;
     }
     else if (echipa1->punctaj < echipa2->punctaj || (fabs(echipa1->punctaj - echipa2->punctaj) < 0.001 && strcmp(echipa2->nume, echipa1->nume) > 0))
 
@@ -82,16 +78,15 @@ void meciuri(Echipa *lista_echipe, Graph *g)
       enQueue(castigatori, echipa2);
       enQueue(invinsi, echipa1);
       g->a[echipa1->i][echipa2->i] = 1;
-     
     }
 
-    nr_echipe++; // dupa ce se adauga echipa castigatoare in coada, nr_de echipe creste cu 1
+    nr_echipe++; // a fost adaugata inapoi una dintre echipe in coada de castigatori
   }
 }
 
-void afisare_graf(char *args2, Graph *g)
+void afisare_graf(char *argv2, Graph *g)
 {
-  FILE *graf = fopen(args2, "wt");
+  FILE *graf = fopen(argv2, "wt");
   if (graf == NULL)
   {
     printf("Eroare la deschiderea fisierului pentru graf!\n");
@@ -104,4 +99,41 @@ void afisare_graf(char *args2, Graph *g)
     fprintf(graf, "\n");
   }
   fclose(graf);
+}
+
+void clasament(char *argv3, Graph *g, Queue *invinsi, Queue *castigatori)
+{
+  FILE *scor = fopen(argv3, "wt");
+  if (scor == NULL)
+  {
+    printf("Eroare la deschiderea fisierului pentru scor!");
+    exit(1);
+  }
+  int victorii[NR_ECHIPE] = {0};
+  int level = 0;
+  for (Echipa *p = invinsi->front; p != NULL; p = p->next)
+  {
+    for (int j = 0; j < NR_ECHIPE; j++)
+    {
+      victorii[p->i] = victorii[p->i] + g->a[j][p->i]; /// numarul de muchii(/victoriile) se afla pe coloane
+    }
+    if (level < victorii[p->i])
+      level = victorii[p->i];
+  }
+
+  level++; ///deoarece echipa castigatoare nu se afla in coada invinsilor
+  victorii[castigatori->front->i]=level;
+  float q = 0.15;
+  float prestigiu;
+  level++;///pentru checker
+  for (Echipa *p = invinsi->front; p != NULL; p = p->next)
+  {
+    
+    prestigiu = (q *pow((2 - q), victorii[p->i]))/ (pow(2, level) + pow((2 - q), level) * (q - 1));
+                
+    fprintf(scor, "%.4f %s\n", prestigiu, p->nume);
+  }
+  prestigiu = (q * pow((2 - q), victorii[castigatori->front->i])) / (pow(2, level) + pow((2 - q), level) * (q - 1));
+  fprintf(scor, "%.4f %s\n", prestigiu, castigatori->front->nume);
+  fclose(scor);
 }

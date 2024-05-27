@@ -5,9 +5,7 @@
 #include "../headers/tipuri_de_date.h"
 #include "../headers/functii.h"
 #define LUNGIME_MAXIMA 50
-void addAtEnd(Echipa **head, int i, char *nume, float punctaj) /// in lista tinem minte echipele si o actualizam pe masura meciurilor
-///(eliminam echipele din lista + actualizam numarul de victorii) pe masura ce facem deQueue mai intai din coada castigatorilor, dupa aceea din coada invinsilor
-/// nu mai duplicam nodurile!!!
+void addAtEnd(Echipa **head, int i, char *nume, float punctaj) 
 {
     Echipa *node = (Echipa *)malloc(sizeof(Echipa));
     node->nume = (char *)malloc((strlen(nume) + 1) * sizeof(char));
