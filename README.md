@@ -15,6 +15,6 @@ Liniile:
 
 se datoreaza faptului ca atunci cand se calculeaza numarul de victorii, respectiv se calculeaza prestigiul si se afiseaza, se parcurge coada invinsilor, in care echipa castigatoare nu se afla, aceasta aflandu-se in coada de castigatori. Este necesara incremementarea variabilei level deoarece level-ul este reprezentat de numarul maxim de victorii, adica de numarul de victorii ale echipei castigatoare.
 
-Functia void elim_c(char *s) elimină începând de la sfârșit numele unei echipe caracterele nedorite (spațiu, '\r', '\n') care pot apărea în șirul de caractere ca urmare a citirii numelui echipei cu funcția fgetc.
+Functia void elim_c(char *s) elimină începând de la sfârșit numele unei echipe caracterele nedorite (spațiu, '\r', '\n') care pot apărea în șirul de caractere ca urmare a citirii numelui echipei cu funcția fgets.
 
 
